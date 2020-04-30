@@ -7,21 +7,25 @@ export default class SearchForm extends Component {
     }
     
     onSearchChange = e => {
-        this.setState({ searchText: e.target.value });
+        this.setState ({ searchText: e.target.value });
     }
     
     handleSubmit = e => {
-        e.preventDefault();
-        e.currentTarget.reset();
+        e.preventDefault ();
+        this.props.onSearch (this.query.value); // the value of the input from the DOM 
+        e.currentTarget.reset ();
     }
     
     render() {  
         return (
             <form className="search-form" onSubmit={this.handleSubmit} >
                 <label className="is-hidden" htmlFor="search">Search</label>
+                {/* When used on a HTML element, the ref attribute takes a callback 
+                func that receives the underlying DOM element as it's argument */}
                 <input type="search" 
                       onChange={this.onSearchChange}
                       name="search" 
+                      ref={(input) => this.query = input}
                       placeholder="Search..." />
                 <button type="submit" id="submit" className="search-button"><i className="material-icons icn-search">search</i></button>
             </form>      
